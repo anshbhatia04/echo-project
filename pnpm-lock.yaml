@@ -266,6 +266,9 @@ importers:
 
   packages/backend:
     dependencies:
+      '@clerk/backend':
+        specifier: ^2.16.0
+        version: 2.16.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       convex:
         specifier: ^1.27.3
         version: 1.27.3(@clerk/clerk-react@5.49.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
