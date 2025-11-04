@@ -4,9 +4,9 @@ import { components } from "../../_generated/api";
 
 const rag = new RAG(components.rag, {
   textEmbeddingModel: google.textEmbeddingModel('text-embedding-004', {
-    outputDimensionality: 1536,
+  outputDimensionality: 768,
   }) as any,
-  embeddingDimension: 1536,
+  embeddingDimension: 768,
 });
 
 export default rag;
