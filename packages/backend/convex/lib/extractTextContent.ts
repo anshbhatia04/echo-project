@@ -3,6 +3,7 @@ import { generateText } from "ai";
 import type { StorageActionWriter } from "convex/server";
 import { assert } from "convex-helpers";
 import { Id } from "../_generated/dataModel";
+
 const AI_MODELS = {
     image: google.chat("gemini-2.5-flash"),
     pdf: google.chat("gemini-2.5-flash"),
@@ -71,7 +72,7 @@ async function extractTextFileContent(
 
     if (mimeType.toLowerCase() !== "text/plain") {
         const result = await generateText({
-            model: AI_MODELS.html,
+            model: AI_MODELS.html as any,
             system: SYSTEM_PROMPTS.html,
             messages: [
                 {
@@ -97,7 +98,7 @@ async function extractPdfText(
     filename: string,
 ): Promise<string> {
     const result = await generateText({
-        model: AI_MODELS.pdf,
+        model: AI_MODELS.pdf as any,
         system: SYSTEM_PROMPTS.pdf,
         messages: [
             {
@@ -115,7 +116,7 @@ async function extractPdfText(
 
 async function extractImageText(url: string): Promise<string> {
     const result = await generateText({
-        model: AI_MODELS.image,
+        model: AI_MODELS.image as any,
         system: SYSTEM_PROMPTS.image,
         messages: [
             {
