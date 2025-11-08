@@ -153,7 +153,7 @@ export const FilesView = () => {
                                                     <DropdownMenuContent align="end">
                                                         <DropdownMenuItem
                                                             className="text-destructive"
-                                                            onClick={handleDeleteClick(file)}
+                                                            onClick={() => handleDeleteClick(file)}
                                                         >
                                                             <TrashIcon className="size-4 mr-2" />
                                                             Delete
