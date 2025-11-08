@@ -16,6 +16,7 @@ import type * as private_files from "../private/files.js";
 import type * as private_messages from "../private/messages.js";
 import type * as private_plugins from "../private/plugins.js";
 import type * as private_secrets from "../private/secrets.js";
+import type * as private_vapi from "../private/vapi.js";
 import type * as public_contactSessions from "../public/contactSessions.js";
 import type * as public_conversations from "../public/conversations.js";
 import type * as public_messages from "../public/messages.js";
@@ -55,6 +56,7 @@ declare const fullApi: ApiFromModules<{
   "private/messages": typeof private_messages;
   "private/plugins": typeof private_plugins;
   "private/secrets": typeof private_secrets;
+  "private/vapi": typeof private_vapi;
   "public/contactSessions": typeof public_contactSessions;
   "public/conversations": typeof public_conversations;
   "public/messages": typeof public_messages;
@@ -2205,29 +2207,6 @@ export declare const components: {
       >;
     };
     namespaces: {
-      deleteNamespace: FunctionReference<
-        "mutation",
-        "internal",
-        { namespaceId: string },
-        {
-          deletedNamespace: null | {
-            createdAt: number;
-            dimension: number;
-            filterNames: Array<string>;
-            modelId: string;
-            namespace: string;
-            namespaceId: string;
-            status: "pending" | "ready" | "replaced";
-            version: number;
-          };
-        }
-      >;
-      deleteNamespaceSync: FunctionReference<
-        "action",
-        "internal",
-        { namespaceId: string },
-        null
-      >;
       get: FunctionReference<
         "query",
         "internal",
@@ -2274,37 +2253,6 @@ export declare const components: {
             numItems: number;
           };
           status: "pending" | "ready" | "replaced";
-        },
-        {
-          continueCursor: string;
-          isDone: boolean;
-          page: Array<{
-            createdAt: number;
-            dimension: number;
-            filterNames: Array<string>;
-            modelId: string;
-            namespace: string;
-            namespaceId: string;
-            status: "pending" | "ready" | "replaced";
-            version: number;
-          }>;
-          pageStatus?: "SplitRecommended" | "SplitRequired" | null;
-          splitCursor?: string | null;
-        }
-      >;
-      listNamespaceVersions: FunctionReference<
-        "query",
-        "internal",
-        {
-          namespace: string;
-          paginationOpts: {
-            cursor: string | null;
-            endCursor?: string | null;
-            id?: number;
-            maximumBytesRead?: number;
-            maximumRowsRead?: number;
-            numItems: number;
-          };
         },
         {
           continueCursor: string;
