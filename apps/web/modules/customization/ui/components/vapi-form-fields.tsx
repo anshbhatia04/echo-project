@@ -87,7 +87,7 @@ export const VapiFormFields = ({
                                 <SelectTrigger>
                                     <SelectValue 
                                         placeholder={
-                                            assistantsLoading
+                                            phoneNumbersLoading
                                                 ? "Loading phone numbers..."
                                                 : "Select a phone number"
                                         }
