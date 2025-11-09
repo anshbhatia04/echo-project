@@ -53,8 +53,8 @@ const vapiFeatures: Feature[] = [
 ];
 
 const formSchema = z.object({
-    publicApiKey: z.string().min(1, { message: "Public API key is required" }),
-    privateApiKey: z.string().min(1, { message: "Private API key is required" }),
+    publicKey: z.string().min(1, { message: "Public API key is required" }),
+    privateKey: z.string().min(1, { message: "Private API key is required" }),
 });
 
 const VapiPluginForm = ({
@@ -68,8 +68,8 @@ const VapiPluginForm = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            publicApiKey: "",
-            privateApiKey: "",
+            publicKey: "",
+            privateKey: "",
         },
     });
 
@@ -78,8 +78,8 @@ const VapiPluginForm = ({
             await upsertSecret({
                 service: "vapi",
                 value: {
-                    publicKey: values.publicApiKey,
-                    privateKey: values.privateApiKey,
+                    publicKey: values.publicKey,
+                    privateKey: values.privateKey,
                 },
             });
             setOpen(false);
@@ -105,7 +105,7 @@ const VapiPluginForm = ({
                     >
                         <FormField
                             control={form.control}
-                            name="publicApiKey"
+                            name="publicKey"
                             render={({ field }) => (
                                 <FormItem>
                                     <Label>Public API key</Label>
@@ -122,7 +122,7 @@ const VapiPluginForm = ({
                         />
                         <FormField
                             control={form.control}
-                            name="privateApiKey"
+                            name="privateKey"
                             render={({ field }) => (
                                 <FormItem>
                                     <Label>Private API key</Label>
