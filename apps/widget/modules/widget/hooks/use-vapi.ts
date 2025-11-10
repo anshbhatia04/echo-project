@@ -1,6 +1,6 @@
 import Vapi from "@vapi-ai/web";
 import { useAtomValue } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { vapiSecretsAtom, widgetSettingsAtom } from "../atoms/widget-atoms";
 
 interface TranscriptMessage {
@@ -17,6 +17,8 @@ export const useVapi = () => {
     const [isConnecting, setIsConnecting] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [transcript, setTranscript] = useState<TranscriptMessage[]>([]);
+
+    const assistantBuffer = useRef("");
 
     useEffect(() => {
 
@@ -51,14 +53,31 @@ export const useVapi = () => {
         });
 
         vapiInstance.on("message", (message) => {
-            if (message.type === "transcript" && message.transcript === "final") {
+            if (message.type === "transcript" && message.transcriptType === "final") {
                 setTranscript((prev) => [
-                    ...prev, 
-                    { 
-                        role: message.role === "user" ? "user" : "assistant", 
-                        text: message.text 
-                    }
+                ...prev,
+                {
+                    role: message.role === "user" ? "user" : "assistant",
+                    text: message.transcript
+                }
                 ]);
+            }
+            if (message.type === "model-output") {
+                assistantBuffer.current += message.output;
+            }
+            if (
+                message.type === "speech-update" &&
+                message.role === "assistant" &&
+                message.status === "stopped"
+            ) {
+                const full = assistantBuffer.current.trim();
+                if (full.length > 0) {
+                setTranscript((prev) => [
+                    ...prev,
+                    { role: "assistant", text: full }
+                ]);
+                }
+                assistantBuffer.current = "";
             }
         });
 

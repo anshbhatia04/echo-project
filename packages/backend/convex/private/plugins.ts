@@ -60,7 +60,7 @@ export const getOne = query({
                 message: "Organization not found"
             });
         }
-
+        
         return await ctx.db
             .query("plugins")
             .withIndex("by_organization_id_and_service", (q) =>
